@@ -1,0 +1,35 @@
+local Pets = require(game:GetService("ReplicatedStorage").Library.Directory.Pets)
+
+-- List of pets to be converted
+local petsToConvert = {"Cat", "Dog", "Chick", "Axolotl"} -- Add Chick and Axolotl to the conversion list
+local titanicPet = "Titanic Soul Owl" -- Target Titanic pet to convert to
+
+-- Function to convert common pets to Titanic Soul Owl
+local function convertToTitanicSoulOwl()
+    for _, fromPet in ipairs(petsToConvert) do
+        -- Check if the pet exists in the Pets directory
+        if Pets[fromPet] then
+            -- Remove the existing pet data
+            for i, v in pairs(Pets[fromPet]) do
+                Pets[fromPet][i] = nil
+            end
+
+            -- Add Titanic Soul Owl model visually
+            for i, v in pairs(Pets[titanicPet] or {}) do
+                Pets[fromPet][i] = v
+            end
+
+            -- Optionally modify size or any other attributes if needed
+            if Pets[fromPet].Size then
+                Pets[fromPet].Size = Vector3.new(10, 10, 10) -- Adjust size as needed to Titanic size
+            end
+
+            print(fromPet .. " has been converted to Titanic Soul Owl.")
+        else
+            print(fromPet .. " does not exist in the Pets directory.")
+        end
+    end
+end
+
+-- Call the function to convert pets
+convertToTitanicSoulOwl()
